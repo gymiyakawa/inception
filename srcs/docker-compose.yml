@@ -56,8 +56,11 @@ services: #does the order matter? what depends on what, etc?
 
         mariadb:
           image: mariadb
-          environment:  #not sure what this does. taken form mariadb dockerhub documentation
-            MARIADB_ROOT_PASSWORD: mariadbpassword
+          container_name: mariadb
+          networks:
+            - inception
+          env_file: .env
+          
           restart: always
 
 

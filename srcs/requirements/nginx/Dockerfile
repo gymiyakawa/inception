@@ -1,5 +1,5 @@
 
-FROM debian:bullseye
+FROM debian:buster
 
 
 #######		INSTALLING NECESSARY PACKAGES
@@ -11,8 +11,7 @@ RUN apt update \
 
 ######		CREATING SSL CERTIFICATE
 
-RUN mkdir -p /etc/nginx/certs
-
+RUN mkdir -p /etc/nginx/ssl
 
 #				OPENSSL OPTIONS BREAKDOWN:
 #	-x509 - Specifies the X.509 certificate format (self-signed).
@@ -28,8 +27,8 @@ RUN mkdir -p /etc/nginx/certs
 #			organizational unit (OU), common name (CN), and user ID (UID)
 
 RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-	-keyout /etc/nginx/certs/selfsigned.key \
-	-out /etc/nginx/certs/selfsigned.crt \
+	-keyout /etc/nginx/ssl/inception.key \
+	-out /etc/nginx/ssl/inception.crt \
 	-subj "/C=CA/ST=QC/L=Quebec/O=42QC/CN=gmiyakaw.42.fr/UID=gmiyakaw"
 
 
@@ -60,10 +59,18 @@ COPY conf/nginx.conf /etc/nginx/nginx.conf
 #	necessary permissions to execute it's operations
 
 RUN chmod 755 /var/www/html \ 
-	&& chwon -R www-data:www-data /var/www/html
+	&& chown -R www-data:www-data /var/www/html
 
+#####		RUNNING THE SERVER
 
-#	copies the bash script from the local tools folder into the image's root directory
-COPY ./tools/script.sh /
+#	running nginx with daemon off so that it runs on the foregound.
+#	that is beneficial for a few reasons, when running Docker:
 
-CMD ["/script.sh"]
+#	It allows Docker to properly track and monitor Nginx, in case
+#	of a crash or unexpected behavior, Docker can then restart the container
+#	or properly handle any errors.
+
+#	it allows Docker to capture and manage logs more effectively, allowing for
+#	easier debugging and troubleshooting.
+
+CMD [ "nginx", "-g", "daemon off;" ]
