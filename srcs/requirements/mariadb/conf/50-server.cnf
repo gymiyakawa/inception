@@ -1,0 +1,13 @@
+[mysqld]
+
+datadir = /var/lib/mysql
+socket = /var/run/mysql/mysql.sock
+
+#			 bind_address vs port number
+#	bind_address = determines the network interface(IP adress) on which the Mariadb should listen
+#				for incoming connections
+#	port number = specifies which port number Mariadb will listen to for connections. Default is 3306
+
+bind_address=*
+port 3306
+user = mysql

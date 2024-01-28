@@ -11,8 +11,8 @@ if [ -f "$wp_config_file" ]; then
 fi
 
 if [ ! -f "$wp_config_file" ]; then
-    # --------------------- 1er étape : Configuration de la base de données SQL pour WordPress ---------------------
-    echo "Configuration de php"
+#####		CONFIGURING SQL DATABASE FOR WORDPRESS
+    echo "Setting up php"
     # wp --allow-root config create \
     /usr/local/bin/wp-cli.phar --allow-root config create \
         --dbname="$SQL_DATABASE" \
@@ -20,8 +20,8 @@ if [ ! -f "$wp_config_file" ]; then
         --dbpass="$SQL_PASSWORD" \
         --dbhost="mariadb:3306" --path='/var/www/wordpress'
 
-    # --------------------- 2eme étape : Création de la page ---------------------
-    echo "Création de la page"
+#####		Creating Page
+    echo "Creating page"
     /usr/local/bin/wp-cli.phar --allow-root core install \
         --url='https://localhost' \
         --title="$WP_TITLE" \
@@ -30,16 +30,16 @@ if [ ! -f "$wp_config_file" ]; then
         --admin_email="$WP_ADMIN_EMAIL" \
         --path='/var/www/wordpress/'
 
-    # --------------------- 3eme étape : Ajout d'un utilisateur ---------------------
-    echo "Création d'un nouvel utilisateur"
+####	ADDING A USER
+    echo "Adding a user"
     /usr/local/bin/wp-cli.phar --allow-root user create \
         "$WP_USER" \
         "$WP_USER_EMAIL" \
         --role=author \
         --user_pass="$WP_USER_PASSWORD" \
         --path='/var/www/wordpress/'
-    echo "Pour verifier la création du deuxieme utilisateur, allez à l'adresse localhost/wp-login.php"
+    echo "check user creation at localhost/wp-login.php"
 fi
 
-echo "Execution de php-fpm"
+echo "Executing php-fpm"
 /usr/sbin/php-fpm7.3 -F 

@@ -1,66 +1,90 @@
-# I think this is the true heart of it all
-# acts as master control for all containers.
-
-# containes instructions on stablishing connections between containers and volumes
-# I believe tabs and spaces are all the same
+version: '3'
 
 
-# fields left blank need to be researched and filled in.
+# context: path to Dockerfile
+# env_file: path to .env file
+# expose: which port to listen to for communications between the same Docker network
+# port: which port to listen to for communcations from outside the Docker network
+# depends_on: tells docker in which order to start each container.
+#           important to note that it does not govern then relationship between
+#           Dockers, ie. if one needs to be restart, Docker will not automatically
+#           restart it's dependencies.
+services:
+      mariadb:
+        container_name: mariadb
+        networks:
+          - inception
+        build:
+          context: requirements/mariadb
+        env_file: .env
+        volumes:
+          - mariadb:/var/lib/mysql
+        restart: on-failure
+        expose:
+          - "3306"
+      nginx:
+        container_name: ngnix
+        networks:
+          - inception
+        depends_on:
+          - wordpress
+        build:
+          context: requirements/ngnix
+        env_file: .env
+        ports:
+          - 443:443
+      wordpress:
+        container_name: wordpress
+        env_file: .env
+        volumes:
+          - wordpress:/var/www/wordpress
+        networks:
+          -inception
+        build:
+          context: requirements/wordpress
+        depends_on:
+          -mariadb
+        restart: on-failure
+        expose:
+          - "9000"
 
-
-version: 3# is this the correct version? 
-
-volumes: # which services require it? mariadb and wor+dpress for sure, I think?
-        wordpress:
-                  name:
-                  driver:
-                  driver_opts:
-        mariadb:
-                name:
-                driver:
-                driver_opts:
-
-
-networks:     # network is a virtual software defined network that connects Docker containers. 
+#   network is a virtual software defined network that connects Docker containers.
+#   driver: what type of connection
+#   bridge driver: the default network driver, creates a private internal network on the host machine
+#                and assigns IP addresses to containers on that network. The containers can then
+#                communicate using these IP adresses.
+networks:
         inception:
-                  name: inception
+            name: inception
+            driver: bridge
 
 
-          #are these variables standard? as in, would docker daemon know what to do with depends_on, for instance?
-          #or are the we required to make that connection elsewhere?
-services: #does the order matter? what depends on what, etc? 
-        ngnix:
-          container_name: ngnix
-          build: ./requirements/ngnix
-          image:
-          ports:
-            - 443:443 # - "portnumbers"
-          depends_on:
-            # - "service"
-            
-            # The depends_on field does not wait for services to be "ready" before starting
-            # the dependent service. It only ensures that the dependent service is started
-            # before the service with the depends_on field.
+
+#   Volumes are data storage that will persist even if the container that is associated with it
+#   is interrupeted or deleted.
+
+#   driver: specifies the type of volume, in this case local
+#   driver options: 
+#   type: not a special type, defaults to "bind" type
+#   o: specifies the bind option, in this case a bind mount.
+#   device: specifies the path on the host machine where the volume will be mounted into the container
 
 
-          volumes:
-            # - "service:path/to/volume"
-          networks:
-            - inception #I think this is how we link them all up.
-          env_file:
-            - .env
-          restart: always  #what other options are there?
-
-
+#    <!> VOLUMES WILL HAVE A DIFFERENT PATH WHEN RUNNING TESTS VS RUNNING IN THE VM ITSELF <!>
+#       that happens because on the macs we dont have sudo powers to change anything
+#       in the home directory.
+volumes:
         wordpress:
-
+            driver: local
+            driver_opts:
+              type: "none"
+              o: 'bind'
+              # device: /Users/gmiyakaw/Documents/Common_Core_Projects/inception/srcs/temp_volumes/wordpress
+              device: '/home/gmiyakaw/data/wordpress'   #NEEDS TO BE CHANGED WHEN RUNNING ON VM VS MACS
         mariadb:
-          image: mariadb
-          container_name: mariadb
-          networks:
-            - inception
-          env_file: .env
-          
-          restart: always
-
-
+            driver: local
+            driver_opts:
+              type: 'none'
+              o: 'bind'
+              # device: /Users/gmiyakaw/Documents/Common_Core_Projects/inception/srcs/temp_volumes/mariadb
+              device: '/home/gmiyakaw/data/mariadb'    #NEEDS TO BE CHANGED WHEN RUNNING ON VM VS MACS
