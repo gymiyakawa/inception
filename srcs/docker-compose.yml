@@ -23,13 +23,13 @@ services:
         expose:
           - "3306"
       nginx:
-        container_name: ngnix
+        container_name: nginx
         networks:
           - inception
         depends_on:
           - wordpress
         build:
-          context: requirements/ngnix
+          context: requirements/nginx
         env_file: .env
         ports:
           - 443:443
