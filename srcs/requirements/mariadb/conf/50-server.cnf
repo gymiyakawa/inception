@@ -9,5 +9,4 @@ socket = /var/run/mysql/mysql.sock
 #	port number = specifies which port number Mariadb will listen to for connections. Default is 3306
 
 bind_address=*
-port 3306
 user = mysql
