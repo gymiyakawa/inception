@@ -1,0 +1,63 @@
+# I think this is the true heart of it all
+# acts as master control for all containers.
+
+# containes instructions on stablishing connections between containers and volumes
+# I believe tabs and spaces are all the same
+
+
+# fields left blank need to be researched and filled in.
+
+
+version: 3# is this the correct version? 
+
+volumes: # which services require it? mariadb and wor+dpress for sure, I think?
+        wordpress:
+                  name:
+                  driver:
+                  driver_opts:
+        mariadb:
+                name:
+                driver:
+                driver_opts:
+
+
+networks:     # network is a virtual software defined network that connects Docker containers. 
+        inception:
+                  name: inception
+
+
+          #are these variables standard? as in, would docker daemon know what to do with depends_on, for instance?
+          #or are the we required to make that connection elsewhere?
+services: #does the order matter? what depends on what, etc? 
+        ngnix:
+          container_name: ngnix
+          build: ./requirements/ngnix
+          image:
+          ports:
+            - 443:443 # - "portnumbers"
+          depends_on:
+            # - "service"
+            
+            # The depends_on field does not wait for services to be "ready" before starting
+            # the dependent service. It only ensures that the dependent service is started
+            # before the service with the depends_on field.
+
+
+          volumes:
+            # - "service:path/to/volume"
+          networks:
+            - inception #I think this is how we link them all up.
+          env_file:
+            - .env
+          restart: always  #what other options are there?
+
+
+        wordpress:
+
+        mariadb:
+          image: mariadb
+          environment:  #not sure what this does. taken form mariadb dockerhub documentation
+            MARIADB_ROOT_PASSWORD: mariadbpassword
+          restart: always
+
+
