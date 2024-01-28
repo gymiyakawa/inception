@@ -43,7 +43,7 @@ services:
         build:
           context: requirements/wordpress
         depends_on:
-          -mariadb
+          - mariadb
         restart: on-failure
         expose:
           - "9000"
