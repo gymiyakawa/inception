@@ -25,10 +25,10 @@ RUN apt update -y \
 #	remove the compressed file
 #	change ownership -R (recursive) of the files to the root user and group
 
-RUN wget -O /var/www/wordpress.tar.gz https://wordpress.org/latest.tar.gz \
+RUN wget https://wordpress.org/latest.tar.gz -P /var/www \
 	&& cd /var/www \
-	&& tar -xzvf wordpress.tar.gz \
-	&& rm wordpress.tar.gz \
+	&& tar -xzf latest.tar.gz \
+	&& rm latest.tar.gz \
 	&& chown -R root:root /var/www/wordpress
 	
 
