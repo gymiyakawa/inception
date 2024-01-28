@@ -22,6 +22,7 @@ services:
         restart: on-failure
         expose:
           - "3306"
+
       nginx:
         container_name: nginx
         networks:
@@ -33,6 +34,7 @@ services:
         env_file: .env
         ports:
           - 443:443
+
       wordpress:
         container_name: wordpress
         env_file: .env
@@ -81,6 +83,7 @@ volumes:
               o: 'bind'
               # device: /Users/gmiyakaw/Documents/Common_Core_Projects/inception/srcs/temp_volumes/wordpress
               device: '/home/gmiyakaw/data/wordpress'   #NEEDS TO BE CHANGED WHEN RUNNING ON VM VS MACS
+
         mariadb:
             driver: local
             driver_opts:

@@ -29,7 +29,7 @@ RUN mkdir -p /etc/nginx/ssl
 RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 	-keyout /etc/nginx/ssl/inception.key \
 	-out /etc/nginx/ssl/inception.crt \
-	-subj "/C=CA/ST=QC/L=Quebec/O=42QC/CN=gmiyakaw.42.fr/UID=gmiyakaw"
+	-subj "/C=CA/ST=QC/L=Quebec/O=42QC/OU=gmiyakaw.42.fr/CN=gmiyakaw.42.fr/UID=gmiyakaw"
 
 
 ######		CONFIGURATION
