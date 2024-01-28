@@ -39,7 +39,7 @@ services:
         volumes:
           - wordpress:/var/www/wordpress
         networks:
-          -inception
+          - inception
         build:
           context: requirements/wordpress
         depends_on:
