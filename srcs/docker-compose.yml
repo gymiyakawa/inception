@@ -33,7 +33,8 @@ services:
           context: requirements/nginx
         env_file: .env
         ports:
-          - 443:443
+          - "443:443"
+          restart: on-failure
 
       wordpress:
         container_name: wordpress
