@@ -62,11 +62,13 @@ COPY conf/nginx.conf /etc/nginx/nginx.conf
 # RUN chmod 755 /var/www/html \ 
 # 	&& chown -R www-data:www-data /var/www/html
 
+RUN chmod 777 /var/www/html \ 
+	&& chown -R root:root /var/www/html
 
-RUN mkdir /var/www/wordpress
+# RUN mkdir /var/www/wordpress
 
-RUN chmod 777 /var/www/wordpress \ 
-	&& chown -R root:root /var/www/wordpress
+# RUN chmod 777 /var/www/wordpress \ 
+# 	&& chown -R root:root /var/www/wordpress
 
 #####		RUNNING THE SERVER
 
