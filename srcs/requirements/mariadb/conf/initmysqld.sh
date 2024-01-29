@@ -6,7 +6,7 @@ mysqld &
 
 sleep 10
 
-#	creating inception database
+#	database creation
 mysql -u root -p$SQL_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
 #	user creation
 mysql -u root -p$SQL_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';"
@@ -23,5 +23,4 @@ mysqladmin -u root -p$SQL_ROOT_PASSWORD -S /var/run/mysqld/mysqld.sock shutdown
 sleep 5
 
 #restarting sql to apply changes
-# exec mysqld_safe
-exec mysqld
+exec mysqld_safe
