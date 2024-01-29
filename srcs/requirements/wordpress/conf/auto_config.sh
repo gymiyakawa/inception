@@ -42,5 +42,5 @@ if [ ! -f "$wp_config_file" ]; then
 fi
 
 echo "Executing php-fpm"
-/usr/sbin/php-fpm 7.3 -F 
-# /usr/sbin/php-fpm7.3 -F 
+# /usr/sbin/php-fpm 7.3 -F 
+/usr/sbin/php-fpm7.3 -F 
