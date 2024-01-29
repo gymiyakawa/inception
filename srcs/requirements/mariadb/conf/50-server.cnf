@@ -1,7 +1,7 @@
 [mysqld]
 
 datadir = /var/lib/mysql
-socket = /var/run/mysql/mysql.sock
+socket = /var/run/mysqld/mysqld.sock
 
 #			 bind_address vs port number
 #	bind_address = determines the network interface(IP adress) on which the Mariadb should listen
