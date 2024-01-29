@@ -19,6 +19,7 @@ if [ ! -f "$wp_config_file" ]; then
         --dbuser="$SQL_USER" \
         --dbpass="$SQL_PASSWORD" \
         --dbhost="mariadb:3306" --path='/var/www/wordpress'
+		#  --dbhost="mariadb:3306" --path='/var/www/wordpress/'
 
 #####		Creating Page
     echo "Creating page"
