@@ -33,12 +33,12 @@ RUN wget https://wordpress.org/latest.tar.gz -P /var/www \
 	
 
 # copies config files to the image
-COPY conf/www.conf /etc/php/7.3/fpm/pool/.d/www.conf
+COPY conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 
 #	Installing worpress CLI (command line interface)
 #	changing permissions to make it executable
 #	moving it into the binaries
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar\
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& chmod +x wp-cli.phar\
 	&& mv wp-cli.phar /usr/local/bin/wp-cli.phar
 	
