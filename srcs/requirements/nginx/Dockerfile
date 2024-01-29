@@ -59,8 +59,11 @@ COPY conf/nginx.conf /etc/nginx/nginx.conf
 #	or file. Again, this is commonly done in webservers to ensure it has the
 #	necessary permissions to execute it's operations
 
+# RUN chmod 755 /var/www/html \ 
+# 	&& chown -R www-data:www-data /var/www/html
+
 RUN chmod 755 /var/www/html \ 
-	&& chown -R www-data:www-data /var/www/html
+	&& chown -R root:root /var/www/html
 
 # RUN mkdir /var/www/wordpress
 
