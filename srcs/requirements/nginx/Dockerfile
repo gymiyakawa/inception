@@ -62,7 +62,7 @@ COPY conf/nginx.conf /etc/nginx/nginx.conf
 # RUN chmod 755 /var/www/html \ 
 # 	&& chown -R www-data:www-data /var/www/html
 
-RUN mkdir /var/www/wordpess
+RUN mkdir /var/www/wordpress
 
 RUN chmod 755 /var/www/wordpress \ 
 	&& chown -R www-data:www-data /var/www/wordpress
