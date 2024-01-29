@@ -51,18 +51,6 @@ services:
         expose:
           - "9000"
 
-#   network is a virtual software defined network that connects Docker containers.
-#   driver: what type of connection
-#   bridge driver: the default network driver, creates a private internal network on the host machine
-#                and assigns IP addresses to containers on that network. The containers can then
-#                communicate using these IP adresses.
-networks:
-        inception:
-            name: inception
-            driver: bridge
-
-
-
 #   Volumes are data storage that will persist even if the container that is associated with it
 #   is interrupeted or deleted.
 
@@ -92,3 +80,15 @@ volumes:
               o: 'bind'
               # device: /Users/gmiyakaw/Documents/Common_Core_Projects/inception/srcs/temp_volumes/mariadb
               device: '/home/gmiyakaw/data/mariadb'    #NEEDS TO BE CHANGED WHEN RUNNING ON VM VS MACS
+
+
+#   network is a virtual software defined network that connects Docker containers.
+#   driver: what type of connection
+#   bridge driver: the default network driver, creates a private internal network on the host machine
+#                and assigns IP addresses to containers on that network. The containers can then
+#                communicate using these IP adresses.
+networks:
+        inception:
+            name: inception
+            driver: bridge
+
