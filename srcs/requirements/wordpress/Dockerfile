@@ -25,26 +25,11 @@ RUN apt update -y \
 #	remove the compressed file
 #	change ownership -R (recursive) of the files to the root user and group
 
-# RUN wget https://wordpress.org/latest.tar.gz -P /var/www \
-# 	&& cd /var/www \
-# 	&& tar -xzf latest.tar.gz \
-# 	&& rm latest.tar.gz \
-# 	&& chown -R root:root /var/www/wordpress
-	
-	RUN wget https://fr.wordpress.org/wordpress-6.3.1-fr_FR.tar.gz -P /var/www \
-    && cd /var/www\
-    && tar -xzf wordpress-6.3.1-fr_FR.tar.gz\
-    && rm wordpress-6.3.1-fr_FR.tar.gz\
-    # La commande chown -R est utilisée pour modifier le propriétaire et le groupe d'un fichier ou d'un répertoire
-    && chown -R root:root /var/www/wordpress
-	
-	
-	
-	
-	
-	
-	
-	
+RUN wget https://wordpress.org/latest.tar.gz -P /var/www \
+	&& cd /var/www \
+	&& tar -xzf latest.tar.gz \
+	&& rm latest.tar.gz \
+	&& chown -R root:root /var/www/wordpress
 	
 
 # copies config files to the image
