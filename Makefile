@@ -49,11 +49,10 @@ docker: $(SRCS)
 	@echo "don't forget to add '127.0.0.1 gmiyakaw.42.fr' at the end of the etc/hosts file"
 
 down:
-docker-compose -f /srcs/docker-compose.yml down
-
+	docker-compose -f /srcs/docker-compose.yml down
 
 up:
-docker-compose -f /srcs/docker-compose.yml up
+	docker-compose -f /srcs/docker-compose.yml up
 
 clean:
 	@$(DC) -f $(SRCS) stop
