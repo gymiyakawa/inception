@@ -27,13 +27,13 @@ services:
         container_name: nginx
         networks:
           - inception
-        depends_on:
-          - wordpress
         build:
           context: requirements/nginx
         env_file: .env
         volumes:
           - wordpress:/var/www/wordpress
+        depends_on:
+          - wordpress
         ports:
           - "443:443"
         restart: on-failure

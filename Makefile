@@ -42,10 +42,21 @@ docker: $(SRCS)
 	@$(DC) -f $(SRCS) up --build --remove-orphans -d
 	@echo "services build and ready"
 	@echo "go to https://gmiyakaw.42.fr to access website"
-	@echo "additional useful commands:"
+	@echo "additional useful tips and commands:"
+	@echo "if you have connections problems with nginx, make sure wordpress script is done creating the page"
+	@echo "to use the terminal of a container you can use 'docker exec -it <container name> /bin/sh' "
 	@echo "Use 'mysql -u db_user -p db_name' inside mariadb container to connect to the CLI database"
 	@echo "don't forget to add '127.0.0.1 gmiyakaw.42.fr' at the end of the etc/hosts file"
-	@echo "to use the terminal of a container you can use 'docker exec -it <container name> /bin/sh' "
+
+down:
+	@cd ./srcs
+	docker-compose down
+	@cd ..
+
+up:
+	@cd.. ./srcs
+	docker-compose up
+	@cd ..
 
 clean:
 	@$(DC) -f $(SRCS) stop
