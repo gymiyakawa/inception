@@ -52,7 +52,7 @@ down:
 	docker compose -f srcs/docker-compose.yml down
 
 up:
-	docker compose -f srcs/docker-compose.yml up
+	@$(DC) -f $(SRCS) up --build --remove-orphans -d
 
 clean:
 	@$(DC) -f $(SRCS) stop
